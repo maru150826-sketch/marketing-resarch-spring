@@ -469,6 +469,190 @@
       .segmented { grid-template-columns: 1fr; }
       .history-item { grid-template-columns: 1fr; }
     }
+
+
+    /* スマホ向け調整 */
+    @media (max-width: 780px) {
+      body { font-size: 16px; overflow-x: hidden; }
+      .shell {
+        width: 100%;
+        padding: 12px 12px 28px;
+      }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .eyebrow {
+        font-size: 12px;
+        line-height: 1.6;
+        letter-spacing: .04em;
+        margin-bottom: 6px;
+      }
+      h1 {
+        font-size: 42px;
+        line-height: 1;
+      }
+      h1 span {
+        display: inline-block;
+        font-size: 18px;
+        margin-left: 6px;
+      }
+      .lead {
+        font-size: 14px;
+        line-height: 1.7;
+        margin-top: 10px;
+      }
+      .top-actions {
+        justify-content: stretch;
+      }
+      .top-actions .btn {
+        width: 100%;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin: 12px -2px 12px;
+        padding: 8px 2px;
+        background: rgba(247,250,245,.96);
+        backdrop-filter: blur(10px);
+      }
+      .nav button {
+        min-height: 50px;
+        border-radius: 14px;
+        padding: 9px 6px;
+        font-size: 14px;
+        box-shadow: 0 5px 16px rgba(28, 55, 33, .06);
+      }
+      .nav button span {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+        font-size: 13px;
+      }
+      .app-card {
+        min-height: auto;
+        border-radius: 20px;
+        padding: 18px 14px;
+      }
+      .screen-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .screen-title {
+        font-size: 28px;
+        line-height: 1.25;
+        letter-spacing: -.03em;
+      }
+      .screen-subtitle {
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+      .field-label {
+        font-size: 13px;
+        margin-top: 14px;
+      }
+      .input, .textarea, .select {
+        min-height: 52px;
+        border-radius: 15px;
+        padding: 13px 14px;
+        font-size: 16px;
+      }
+      .textarea {
+        min-height: 120px;
+      }
+      .button-row, .button-stack {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .btn {
+        width: 100%;
+        min-height: 54px;
+        padding: 14px 16px;
+      }
+      .side-card, .mini-card, .result-card, .praise-card {
+        border-radius: 18px;
+        padding: 16px;
+      }
+      .side-card h3, .mini-card h3, .result-card h3, .praise-card h3 {
+        font-size: 19px;
+      }
+      .category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .category-btn {
+        border-radius: 15px;
+        padding: 12px 10px;
+      }
+      .category-btn strong {
+        font-size: 16px;
+      }
+      .category-btn small {
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .calorie-card {
+        border-radius: 20px;
+        padding: 18px;
+      }
+      .calorie {
+        font-size: 56px;
+      }
+      .question-item {
+        border-radius: 15px;
+        padding: 12px;
+        grid-template-columns: 30px 1fr;
+        font-size: 15px;
+      }
+      .question-item .icon {
+        width: 30px;
+        height: 30px;
+      }
+      .segmented {
+        grid-template-columns: 1fr;
+      }
+      .segmented button {
+        min-height: 50px;
+      }
+      .reason-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .reason-chip {
+        width: 100%;
+        text-align: left;
+        border-radius: 15px;
+        padding: 13px 14px;
+      }
+      .history-item {
+        grid-template-columns: 1fr;
+      }
+      .empty {
+        padding: 18px;
+        border-radius: 18px;
+      }
+      .toast {
+        width: calc(100% - 24px);
+        bottom: 14px;
+        border-radius: 16px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .nav button { font-size: 13px; }
+      .nav button span { margin-right: 3px; }
+      .category-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 38px; }
+      .screen-title { font-size: 26px; }
+    }
+
   </style>
 </head>
 <body>
@@ -485,7 +669,7 @@
     </header>
 
     <nav class="nav" id="nav">
-      <button type="button" data-view="plan" class="active"><span>1</span>買い物前</button>
+      <button type="button" data-view="plan" class="active"><span>1</span>買い物メモ</button>
       <button type="button" data-view="store"><span>2</span>店内</button>
       <button type="button" data-view="review"><span>3</span>購入後</button>
       <button type="button" data-view="history"><span>4</span>記録</button>
@@ -497,7 +681,7 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    var STORAGE_KEY = 'kaumae-single-file-v2';
+    var STORAGE_KEY = 'kaumae-single-file-v3';
 
     var categories = [
       { id: 'snack', label: 'お菓子', kcal: 320, hint: 'チョコ・ポテチなど' },
@@ -680,8 +864,8 @@
       app.innerHTML = '' +
         '<section class="screen-grid">' +
           '<div>' +
-            '<h2 class="screen-title">買い物前に、予定だけ決める</h2>' +
-            '<p class="screen-subtitle">細かいチェックリストではなく、「今日は何を買うつもりか」をざっくり書くだけです。決定したら、そのまま店内画面に進みます。</p>' +
+            '<h2 class="screen-title">買い物メモ</h2>' +
+            '<p class="screen-subtitle">今日買う予定をざっくりメモします。決定すると、そのまま店内確認画面に進みます。</p>' +
             '<label class="field-label" for="planText">今日買う予定</label>' +
             '<textarea class="textarea" id="planText" placeholder="例：豚ロース、レタス、ブルーベリー">' + escapeHtml(state.planText) + '</textarea>' +
             '<div class="button-row">' +
@@ -734,7 +918,7 @@
             '<div class="question-list">' +
               '<div class="question-item"><span class="icon">?</span><span>今の気分でほしいだけ？</span></div>' +
               '<div class="question-item"><span class="icon">↺</span><span>後悔はない？</span></div>' +
-              '<div class="question-item"><span class="icon">k</span><span>カロリーをまずはチェック</span></div>' +
+              '<div class="question-item"><span class="icon">熱</span><span>カロリーをまずはチェック</span></div>' +
             '</div>' +
             '<div class="side-card yellow" style="margin-top:16px"><h3>前回後悔した商品</h3><p>' + escapeHtml(cat.label) + 'で過去に後悔した商品を表示します。</p>' + categoryRegretHtml + '</div>' +
             (planned ? '<div class="side-card green" style="margin-top:16px"><h3>予定に入っています</h3><p>買う予定にある商品なので、強い確認は出しません。</p></div>' : '') +
