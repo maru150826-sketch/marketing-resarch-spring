@@ -653,6 +653,263 @@
       .screen-title { font-size: 26px; }
     }
 
+
+    /* v4: スクロールを減らすためのコンパクトUI */
+    .single-screen { max-width: 860px; margin: 0 auto; }
+    .compact-title-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .compact-title-row .screen-title { margin-bottom: 0; }
+    .compact-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+    .compact-preview {
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--green-soft);
+    }
+    .compact-preview h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    .compact-preview .plan-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 0;
+    }
+    .quick-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .summary-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      background: #fff;
+      box-shadow: 0 8px 20px rgba(28, 55, 33, .04);
+    }
+    .summary-card.orange { background: var(--orange-soft); border-color: #f2d0b7; }
+    .summary-card.green { background: var(--green-soft); border-color: #cfe6d2; }
+    .summary-card .small-label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      margin-bottom: 4px;
+    }
+    .summary-card strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1.1;
+    }
+    .summary-card strong span { font-size: 14px; margin-left: 2px; }
+    .store-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .compact-warning { margin-top: 10px; }
+
+    @media (max-width: 780px) {
+      body { font-size: 15px; }
+      .shell { padding: 8px 10px 22px; }
+      .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+      .eyebrow, .lead { display: none; }
+      h1 { font-size: 31px; letter-spacing: -.05em; }
+      h1 span { font-size: 14px; margin-left: 4px; }
+      .top-actions .btn {
+        width: auto;
+        min-height: 36px;
+        padding: 7px 10px;
+        font-size: 12px;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+        margin: 6px -2px 8px;
+        padding: 6px 2px;
+        background: rgba(247,250,245,.97);
+        backdrop-filter: blur(10px);
+      }
+      .nav button {
+        min-height: 38px;
+        border-radius: 12px;
+        padding: 6px 4px;
+        font-size: 12px;
+        box-shadow: none;
+      }
+      .nav button span { display: none; }
+      .app-card {
+        border-radius: 18px;
+        padding: 12px;
+        min-height: 0;
+        box-shadow: 0 10px 26px rgba(28, 55, 33, .08);
+      }
+      .screen-grid, .single-screen {
+        display: block;
+      }
+      .screen-title {
+        font-size: 23px;
+        line-height: 1.25;
+        margin: 0 0 5px;
+      }
+      .screen-subtitle, .compact-note {
+        font-size: 13px;
+        line-height: 1.45;
+        margin-bottom: 10px;
+      }
+      .field-label {
+        margin: 10px 0 5px;
+        font-size: 12px;
+      }
+      .input, .textarea, .select {
+        min-height: 43px;
+        border-radius: 13px;
+        padding: 10px 12px;
+        font-size: 16px;
+      }
+      .textarea { min-height: 76px; line-height: 1.5; }
+      .button-row, .button-stack {
+        margin-top: 12px;
+        gap: 8px;
+      }
+      .btn {
+        min-height: 46px;
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+      .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin-top: 6px;
+      }
+      .category-btn {
+        border-radius: 12px;
+        padding: 9px 6px;
+        text-align: center;
+      }
+      .category-btn strong { font-size: 13px; }
+      .category-btn small { display: none; }
+      .quick-summary {
+        gap: 7px;
+        margin: 10px 0;
+      }
+      .summary-card {
+        border-radius: 14px;
+        padding: 10px;
+      }
+      .summary-card .small-label { font-size: 11px; margin-bottom: 3px; }
+      .summary-card strong { font-size: 22px; }
+      .question-list {
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .question-item {
+        border-radius: 12px;
+        padding: 8px 10px;
+        grid-template-columns: 24px 1fr;
+        gap: 8px;
+        font-size: 13px;
+      }
+      .question-item .icon {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+      }
+      .side-card, .mini-card, .result-card, .praise-card, .compact-preview {
+        border-radius: 14px;
+        padding: 12px;
+        box-shadow: none;
+      }
+      .side-card h3, .mini-card h3, .result-card h3, .praise-card h3, .compact-preview h3 {
+        font-size: 16px;
+        margin-bottom: 6px;
+      }
+      .side-card p, .mini-card p, .result-card p, .praise-card p {
+        line-height: 1.45;
+        font-size: 13px;
+      }
+      .regret-list {
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .regret-product {
+        border-radius: 12px;
+        padding: 10px;
+      }
+      .regret-product strong { font-size: 14px; margin-bottom: 3px; }
+      .regret-product small { font-size: 12px; line-height: 1.45; }
+      .warning-box {
+        border-radius: 13px;
+        padding: 10px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .segmented {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin: 8px 0 10px;
+      }
+      .segmented button {
+        min-height: 40px;
+        border-radius: 12px;
+        padding: 8px 4px;
+        font-size: 13px;
+      }
+      .reason-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+      .reason-chip {
+        width: 100%;
+        text-align: left;
+        border-radius: 12px;
+        padding: 9px 10px;
+        font-size: 12px;
+      }
+      .history-list { gap: 8px; margin-top: 10px; }
+      .history-item {
+        border-radius: 14px;
+        padding: 11px;
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .history-item strong { font-size: 16px; }
+      .history-meta { line-height: 1.45; font-size: 12px; margin-top: 4px; }
+      .badge { width: fit-content; font-size: 12px; padding: 5px 8px; }
+      .empty { padding: 12px; border-radius: 14px; line-height: 1.5; }
+      .store-buttons { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 380px) {
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav button { font-size: 11px; }
+      .reason-grid { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
@@ -681,7 +938,7 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    var STORAGE_KEY = 'kaumae-single-file-v3';
+    var STORAGE_KEY = 'kaumae-single-file-v4';
 
     var categories = [
       { id: 'snack', label: 'お菓子', kcal: 320, hint: 'チョコ・ポテチなど' },
@@ -862,21 +1119,18 @@
 
     function renderPlan() {
       app.innerHTML = '' +
-        '<section class="screen-grid">' +
-          '<div>' +
-            '<h2 class="screen-title">買い物メモ</h2>' +
-            '<p class="screen-subtitle">今日買う予定をざっくりメモします。決定すると、そのまま店内確認画面に進みます。</p>' +
-            '<label class="field-label" for="planText">今日買う予定</label>' +
-            '<textarea class="textarea" id="planText" placeholder="例：豚ロース、レタス、ブルーベリー">' + escapeHtml(state.planText) + '</textarea>' +
-            '<div class="button-row">' +
-              '<button class="btn primary" type="button" data-action="save-plan">買い物を決定して店内へ</button>' +
-            '</div>' +
-          '</div>' +
-          '<aside class="side-card green">' +
+        '<section class="single-screen">' +
+          '<h2 class="screen-title">買い物メモ</h2>' +
+          '<p class="screen-subtitle">今日買う予定だけをざっくり書きます。決定すると店内チェックに進みます。</p>' +
+          '<label class="field-label" for="planText">今日買う予定</label>' +
+          '<textarea class="textarea" id="planText" placeholder="例：豚ロース、レタス、ブルーベリー">' + escapeHtml(state.planText) + '</textarea>' +
+          '<div class="compact-preview">' +
             '<h3>今日の予定</h3>' +
-            '<p>ここにない商品を店内で欲しくなったら、予定外購入として確認します。</p>' +
             planPreviewHtml() +
-          '</aside>' +
+          '</div>' +
+          '<div class="button-row">' +
+            '<button class="btn primary" type="button" data-action="save-plan">店内チェックへ</button>' +
+          '</div>' +
         '</section>';
     }
 
@@ -896,34 +1150,28 @@
       var regret = regretMatch(name);
       var categoryRegretHtml = categoryRegretsHtml(cat.id);
       app.innerHTML = '' +
-        '<section class="screen-grid">' +
-          '<div>' +
-            '<h2 class="screen-title">店内で気になった商品を確認</h2>' +
-            '<p class="screen-subtitle">商品名とカテゴリーを入れると、推定カロリーを表示します。買う前に少しだけ立ち止まる画面です。</p>' +
-            '<label class="field-label" for="candidateName">気になる商品</label>' +
-            '<input class="input" id="candidateName" value="' + escapeHtml(name) + '" placeholder="例：クジラベーコン">' +
-            '<label class="field-label">カテゴリー</label>' +
-            '<div class="category-grid">' + categoryButtonsHtml() + '</div>' +
-            '<div class="button-row">' +
-              '<button class="btn orange" type="button" data-action="buy">買ったので振り返る</button>' +
-              '<button class="btn secondary" type="button" data-action="avoid">今回はやめる</button>' +
-            '</div>' +
+        '<section class="single-screen">' +
+          '<h2 class="screen-title">店内チェック</h2>' +
+          '<p class="screen-subtitle">気になる商品と種類を選び、買う前にカロリーと過去の後悔メモを見ます。</p>' +
+          '<label class="field-label" for="candidateName">気になる商品</label>' +
+          '<input class="input" id="candidateName" value="' + escapeHtml(name) + '" placeholder="例：ポッキー">' +
+          '<label class="field-label">カテゴリー</label>' +
+          '<div class="category-grid">' + categoryButtonsHtml() + '</div>' +
+          '<div class="quick-summary">' +
+            '<div class="summary-card orange"><span class="small-label">推定カロリー</span><strong>' + cat.kcal + '<span>kcal</span></strong></div>' +
+            '<div class="summary-card ' + (planned ? 'green' : '') + '"><span class="small-label">予定</span><strong>' + (planned ? '予定内' : '予定外') + '</strong></div>' +
           '</div>' +
-          '<aside>' +
-            '<div class="calorie-card">' +
-              '<div class="label">推定カロリー</div>' +
-              '<div class="calorie">' + cat.kcal + '<span>kcal</span></div>' +
-              '<p>' + escapeHtml(cat.label) + 'の一般的な目安です。</p>' +
-            '</div>' +
-            '<div class="question-list">' +
-              '<div class="question-item"><span class="icon">?</span><span>今の気分でほしいだけ？</span></div>' +
-              '<div class="question-item"><span class="icon">↺</span><span>後悔はない？</span></div>' +
-              '<div class="question-item"><span class="icon">熱</span><span>カロリーをまずはチェック</span></div>' +
-            '</div>' +
-            '<div class="side-card yellow" style="margin-top:16px"><h3>前回後悔した商品</h3><p>' + escapeHtml(cat.label) + 'で過去に後悔した商品を表示します。</p>' + categoryRegretHtml + '</div>' +
-            (planned ? '<div class="side-card green" style="margin-top:16px"><h3>予定に入っています</h3><p>買う予定にある商品なので、強い確認は出しません。</p></div>' : '') +
-            (regret ? '<div class="warning-box">前にも似た買い物で後悔しています。前回の理由：' + escapeHtml(regret.reasons.slice(0,2).join('・')) + '</div>' : '') +
-          '</aside>' +
+          '<div class="question-list">' +
+            '<div class="question-item"><span class="icon">?</span><span>今の気分でほしいだけ？</span></div>' +
+            '<div class="question-item"><span class="icon">↺</span><span>後悔はない？</span></div>' +
+            '<div class="question-item"><span class="icon">熱</span><span>カロリーをまずはチェック</span></div>' +
+          '</div>' +
+          '<div class="side-card yellow" style="margin-top:12px"><h3>前回後悔した商品</h3><p>' + escapeHtml(cat.label) + 'で後悔した記録を表示します。</p>' + categoryRegretHtml + '</div>' +
+          (regret ? '<div class="warning-box compact-warning">似た商品で後悔あり：' + escapeHtml(regret.reasons.slice(0,2).join('・')) + '</div>' : '') +
+          '<div class="button-row store-buttons">' +
+            '<button class="btn orange" type="button" data-action="buy">買ったので振り返る</button>' +
+            '<button class="btn secondary" type="button" data-action="avoid">今回はやめる</button>' +
+          '</div>' +
         '</section>';
     }
 
@@ -948,48 +1196,36 @@
         return;
       }
       app.innerHTML = '' +
-        '<section class="screen-grid">' +
-          '<div>' +
-            '<h2 class="screen-title">買ってどうだった？</h2>' +
-            '<p class="screen-subtitle">予定外購入を責めるのではなく、次回の買い物前に思い出せるように記録します。</p>' +
-            '<div class="result-card">' +
-              '<h3>' + escapeHtml(state.pending.name) + '</h3>' +
-              '<p>' + escapeHtml(categoryById(state.pending.categoryId).label) + '・推定 ' + state.pending.kcal + 'kcal</p>' +
-            '</div>' +
-            '<label class="field-label">評価</label>' +
-            '<div class="segmented">' + statusButtonsHtml() + '</div>' +
-            '<label class="field-label">理由</label>' +
-            '<div class="reason-grid">' + reasonButtonsHtml() + '</div>' +
-            '<label class="field-label" for="note">メモ</label>' +
-            '<textarea class="textarea" id="note" placeholder="例：その場では欲しかったが、家ではあまり食べたくならなかった。"></textarea>' +
-            '<div class="button-row"><button class="btn primary" type="button" data-action="save-review">記録を保存する</button></div>' +
+        '<section class="single-screen">' +
+          '<h2 class="screen-title">買ってどうだった？</h2>' +
+          '<p class="screen-subtitle">次回の買い物前に思い出せるように、短く記録します。</p>' +
+          '<div class="result-card">' +
+            '<h3>' + escapeHtml(state.pending.name) + '</h3>' +
+            '<p>' + escapeHtml(categoryById(state.pending.categoryId).label) + '・推定 ' + state.pending.kcal + 'kcal</p>' +
           '</div>' +
-          '<aside class="side-card orange">' +
-            '<h3>記録の使い方</h3>' +
-            '<p>「後悔した」と保存した商品は、次回似た商品を買おうとしたときに店内画面で注意表示されます。</p>' +
-          '</aside>' +
+          '<label class="field-label">評価</label>' +
+          '<div class="segmented">' + statusButtonsHtml() + '</div>' +
+          '<label class="field-label">理由</label>' +
+          '<div class="reason-grid">' + reasonButtonsHtml() + '</div>' +
+          '<label class="field-label" for="note">メモ</label>' +
+          '<textarea class="textarea" id="note" placeholder="例：その場では欲しかったが、家ではあまり食べたくならなかった。"></textarea>' +
+          '<div class="button-row"><button class="btn primary" type="button" data-action="save-review">保存する</button></div>' +
         '</section>';
     }
 
     function renderPraise(item) {
       app.innerHTML = '' +
-        '<section class="screen-grid">' +
-          '<div>' +
-            '<h2 class="screen-title">今回は立ち止まれました</h2>' +
-            '<p class="screen-subtitle">買わなかったことを「我慢」ではなく、「後悔しそうな買い物を選び直せた」として記録します。</p>' +
-            '<div class="praise-card">' +
-              '<h3>' + escapeHtml(item.name) + 'を今回はやめました</h3>' +
-              '<p>' + escapeHtml(categoryById(item.categoryId).label) + '・推定 ' + item.kcal + 'kcal を買う前に確認できました。</p>' +
-            '</div>' +
-            '<div class="button-row">' +
-              '<button class="btn primary" type="button" data-action="go-store">別の商品を確認する</button>' +
-              '<button class="btn secondary" type="button" data-action="go-history">記録を見る</button>' +
-            '</div>' +
+        '<section class="single-screen">' +
+          '<h2 class="screen-title">今回は立ち止まれました</h2>' +
+          '<p class="screen-subtitle">買わなかったことを、後悔しそうな買い物を選び直せた記録として残しました。</p>' +
+          '<div class="praise-card">' +
+            '<h3>' + escapeHtml(item.name) + 'を今回はやめました</h3>' +
+            '<p>' + escapeHtml(categoryById(item.categoryId).label) + '・推定 ' + item.kcal + 'kcal を買う前に確認できました。</p>' +
           '</div>' +
-          '<aside class="side-card green">' +
-            '<h3>いい判断です</h3>' +
-            '<p>全部を節約する必要はありません。後悔しそうな予定外購入だけ、買う前に気づければ十分です。</p>' +
-          '</aside>' +
+          '<div class="button-row store-buttons">' +
+            '<button class="btn primary" type="button" data-action="go-store">別の商品を確認する</button>' +
+            '<button class="btn secondary" type="button" data-action="go-history">記録を見る</button>' +
+          '</div>' +
         '</section>';
     }
 
