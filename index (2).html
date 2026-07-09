@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KauMae（買う前）</title>
+  <style>
+    :root {
+      --green: #2f6f3e;
+      --green-dark: #1f4d2b;
+      --green-soft: #edf7ef;
+      --orange: #e9782e;
+      --orange-soft: #fff2e8;
+      --yellow-soft: #fff9df;
+      --red-soft: #fff0ee;
+      --text: #182118;
+      --muted: #667066;
+      --line: #dfe7dc;
+      --bg: #f7faf5;
+      --white: #ffffff;
+      --shadow: 0 18px 50px rgba(28, 55, 33, .10);
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); }
+    body { font-size: 17px; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .shell {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: .95;
+      letter-spacing: -.06em;
+    }
+
+    h1 span {
+      color: var(--green);
+      font-size: .38em;
+      letter-spacing: 0;
+      margin-left: 8px;
+    }
+
+    .lead {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-weight: 700;
+      line-height: 1.7;
+      max-width: 780px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: end;
+    }
+
+    .nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .nav button {
+      border: 1px solid var(--line);
+      background: var(--white);
+      border-radius: 18px;
+      padding: 14px 10px;
+      color: var(--muted);
+      font-weight: 900;
+      box-shadow: 0 8px 22px rgba(28, 55, 33, .06);
+    }
+
+    .nav button span {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: #eef1eb;
+      color: var(--green-dark);
+      font-size: 15px;
+    }
+
+    .nav button.active {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+
+    .nav button.active span {
+      background: rgba(255,255,255,.22);
+      color: #fff;
+    }
+
+    .app-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      padding: clamp(22px, 4vw, 42px);
+      min-height: 560px;
+      box-shadow: var(--shadow);
+    }
+
+    .screen-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+      gap: clamp(18px, 4vw, 42px);
+      align-items: start;
+    }
+
+    .screen-title {
+      margin: 0 0 10px;
+      font-size: clamp(32px, 4vw, 50px);
+      line-height: 1.15;
+      letter-spacing: -.05em;
+    }
+
+    .screen-subtitle {
+      margin: 0 0 26px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 700;
+    }
+
+    .field-label {
+      display: block;
+      margin: 18px 0 8px;
+      font-size: 14px;
+      color: var(--green-dark);
+      font-weight: 900;
+      letter-spacing: .04em;
+    }
+
+    .input, .textarea, .select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 18px;
+      padding: 15px 16px;
+      outline: none;
+      color: var(--text);
+    }
+
+    .textarea { min-height: 150px; resize: vertical; line-height: 1.7; }
+    .input:focus, .textarea:focus, .select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(47,111,62,.12);
+    }
+
+    .button-row, .button-stack {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .button-stack { flex-direction: column; }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 15px 22px;
+      min-height: 56px;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn.primary { background: var(--green); color: #fff; }
+    .btn.orange { background: var(--orange); color: #fff; }
+    .btn.secondary { background: var(--white); color: var(--green-dark); border-color: var(--green); }
+    .btn.ghost { background: rgba(255,255,255,.8); color: var(--green-dark); border-color: var(--line); }
+    .btn.full { width: 100%; }
+
+    .side-card, .mini-card, .result-card, .praise-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: #fff;
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(28, 55, 33, .06);
+    }
+
+    .side-card.green { background: var(--green-soft); border-color: #cfe6d2; }
+    .side-card.orange { background: var(--orange-soft); border-color: #f4d2ba; }
+    .side-card.yellow { background: var(--yellow-soft); border-color: #efe2aa; }
+
+    .side-card h3, .mini-card h3, .result-card h3, .praise-card h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+
+    .side-card p, .mini-card p, .result-card p, .praise-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 700;
+    }
+
+    .plan-preview {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .plan-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 11px 14px;
+      font-weight: 900;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--green);
+      flex: 0 0 auto;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .category-btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 18px;
+      padding: 14px 10px;
+      text-align: left;
+      color: var(--text);
+    }
+
+    .category-btn strong { display: block; font-size: 17px; }
+    .category-btn small { display: block; margin-top: 4px; color: var(--muted); font-weight: 700; }
+    .category-btn.active { border-color: var(--orange); background: var(--orange-soft); box-shadow: 0 0 0 4px rgba(233,120,46,.10); }
+
+    .calorie-card {
+      background: linear-gradient(135deg, var(--orange-soft), #fff);
+      border: 1px solid #f2d0b7;
+      border-radius: 28px;
+      padding: 26px;
+      text-align: center;
+    }
+
+    .calorie-card .label {
+      color: var(--muted);
+      font-weight: 900;
+      letter-spacing: .05em;
+      font-size: 14px;
+    }
+
+    .calorie {
+      margin: 8px 0 6px;
+      font-size: clamp(54px, 8vw, 86px);
+      font-weight: 950;
+      letter-spacing: -.06em;
+      color: var(--orange);
+    }
+
+    .calorie span { font-size: .32em; letter-spacing: 0; }
+
+    .question-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .question-item {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+      align-items: start;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      font-weight: 900;
+    }
+
+    .question-item .icon {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-size: 16px;
+    }
+
+    .warning-box {
+      margin-top: 16px;
+      background: var(--red-soft);
+      border: 1px solid #f0c7c0;
+      border-radius: 20px;
+      padding: 16px;
+      color: #7a2b20;
+      font-weight: 850;
+      line-height: 1.7;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .segmented button {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 18px;
+      padding: 16px 10px;
+      font-weight: 900;
+    }
+
+    .segmented button.active { background: var(--orange); color: #fff; border-color: var(--orange); }
+
+    .reason-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0 12px;
+    }
+
+    .reason-chip {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      padding: 11px 14px;
+      color: var(--text);
+      font-weight: 850;
+    }
+
+    .reason-chip.active { background: var(--green-soft); color: var(--green-dark); border-color: var(--green); }
+
+
+    .regret-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .regret-product {
+      background: #fff;
+      border: 1px solid #eadbb1;
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .regret-product strong {
+      display: block;
+      color: #714d00;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .regret-product small {
+      display: block;
+      color: var(--muted);
+      font-weight: 750;
+      line-height: 1.65;
+    }
+
+    .history-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .history-item {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+    }
+
+    .history-item strong { font-size: 20px; }
+    .history-meta { color: var(--muted); font-weight: 700; line-height: 1.6; margin-top: 6px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 13px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .badge.good { background: var(--green-soft); color: var(--green-dark); }
+    .badge.normal { background: #eef1eb; color: var(--muted); }
+    .badge.regret { background: var(--orange-soft); color: #9a4517; }
+    .badge.avoid { background: var(--yellow-soft); color: #7b5c00; }
+
+    .empty {
+      border: 1px dashed #cfd7cc;
+      border-radius: 22px;
+      padding: 28px;
+      background: #fbfdf9;
+      color: var(--muted);
+      font-weight: 800;
+      line-height: 1.7;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(20px);
+      background: #172216;
+      color: #fff;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 900;
+      opacity: 0;
+      pointer-events: none;
+      transition: .18s ease;
+      z-index: 20;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 780px) {
+      .shell { width: min(100% - 20px, 1120px); padding-top: 18px; }
+      .hero { grid-template-columns: 1fr; }
+      .top-actions { justify-content: start; }
+      .nav { grid-template-columns: repeat(2, 1fr); }
+      .app-card { border-radius: 24px; }
+      .screen-grid { grid-template-columns: 1fr; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .segmented { grid-template-columns: 1fr; }
+      .history-item { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">予定外購入を、買う前に一度だけ見直す</p>
+        <h1>KauMae <span>買う前</span></h1>
+        <p class="lead">全部の衝動買いを止めるのではなく、後悔しそうな買い物だけをカロリーと過去メモで確認するアプリ。</p>
+      </div>
+      <div class="top-actions">
+        <button class="btn ghost" id="resetBtn" type="button">デモリセット</button>
+      </div>
+    </header>
+
+    <nav class="nav" id="nav">
+      <button type="button" data-view="plan" class="active"><span>1</span>買い物前</button>
+      <button type="button" data-view="store"><span>2</span>店内</button>
+      <button type="button" data-view="review"><span>3</span>購入後</button>
+      <button type="button" data-view="history"><span>4</span>記録</button>
+    </nav>
+
+    <main class="app-card" id="app"></main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    var STORAGE_KEY = 'kaumae-single-file-v2';
+
+    var categories = [
+      { id: 'snack', label: 'お菓子', kcal: 320, hint: 'チョコ・ポテチなど' },
+      { id: 'ice', label: 'アイス', kcal: 230, hint: 'カップ・バーなど' },
+      { id: 'bread', label: '総菜パン', kcal: 430, hint: 'カレーパンなど' },
+      { id: 'junk', label: 'ジャンクフード', kcal: 680, hint: 'バーガー・揚げ物など' },
+      { id: 'drink', label: 'ジュース', kcal: 160, hint: '甘い飲み物' },
+      { id: 'deli', label: '総菜', kcal: 380, hint: '揚げ物・惣菜など' }
+    ];
+
+    var reasons = [
+      'カロリーが高かった',
+      '脂質が高かった',
+      '味が期待ほどではなかった',
+      'その時の気分で買ってしまった',
+      'お金がもったいなかった',
+      '量が多すぎた',
+      'また買いたい'
+    ];
+
+    function makeId() {
+      return 'id-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+    }
+
+    function defaultState() {
+      return {
+        view: 'plan',
+        planText: '豚ロース、レタス、ブルーベリー',
+        candidateName: 'クジラベーコン',
+        categoryId: 'deli',
+        pending: null,
+        reviewStatus: 'ふつう',
+        selectedReasons: [],
+        history: [
+          {
+            id: makeId(),
+            type: 'bought',
+            name: 'ポッキー',
+            categoryId: 'snack',
+            kcal: 320,
+            status: '後悔した',
+            reasons: ['カロリーが高かった', 'その時の気分で買ってしまった', '量が多すぎた'],
+            note: 'お菓子売り場で見てつい買ったが、あとで食べすぎた感じがした。',
+            date: new Date(Date.now() - 172800000).toISOString()
+          },
+          {
+            id: makeId(),
+            type: 'bought',
+            name: 'クジラベーコン',
+            categoryId: 'deli',
+            kcal: 380,
+            status: '後悔した',
+            reasons: ['脂質が高かった', '味が期待ほどではなかった', 'その時の気分で買ってしまった'],
+            note: 'おもしろそうで買ったが、家ではそこまで食べたくならなかった。',
+            date: new Date(Date.now() - 86400000).toISOString()
+          }
+        ]
+      };
+    }
+
+    function loadState() {
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return defaultState();
+        var parsed = JSON.parse(saved);
+        var base = defaultState();
+        for (var key in parsed) base[key] = parsed[key];
+        return base;
+      } catch (e) {
+        return defaultState();
+      }
+    }
+
+    var state = loadState();
+    var app = document.getElementById('app');
+    var nav = document.getElementById('nav');
+    var toast = document.getElementById('toast');
+
+    function save() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function categoryById(id) {
+      for (var i = 0; i < categories.length; i++) {
+        if (categories[i].id === id) return categories[i];
+      }
+      return categories[0];
+    }
+
+    function normalize(value) {
+      return String(value || '').trim().toLowerCase().replace(/\s+/g, '');
+    }
+
+    function plannedWords() {
+      return String(state.planText || '')
+        .split(/[、,\n]/)
+        .map(function (x) { return x.trim(); })
+        .filter(Boolean);
+    }
+
+    function isPlanned(name) {
+      var n = normalize(name);
+      return plannedWords().some(function (item) {
+        var p = normalize(item);
+        return p && (n === p || n.indexOf(p) >= 0 || p.indexOf(n) >= 0);
+      });
+    }
+
+    function regretMatch(name) {
+      var n = normalize(name);
+      for (var i = state.history.length - 1; i >= 0; i--) {
+        var item = state.history[i];
+        if (item.status === '後悔した') {
+          var h = normalize(item.name);
+          if (h && (n === h || n.indexOf(h) >= 0 || h.indexOf(n) >= 0)) return item;
+        }
+      }
+      return null;
+    }
+
+
+    function categoryRegrets(categoryId) {
+      var seen = {};
+      var list = [];
+      for (var i = state.history.length - 1; i >= 0; i--) {
+        var item = state.history[i];
+        if (item.type === 'bought' && item.status === '後悔した' && item.categoryId === categoryId) {
+          var key = normalize(item.name);
+          if (!seen[key]) {
+            seen[key] = true;
+            list.push(item);
+          }
+        }
+      }
+      return list.slice(0, 4);
+    }
+
+    function categoryRegretsHtml(categoryId) {
+      var regrets = categoryRegrets(categoryId);
+      if (!regrets.length) {
+        return '<p>この種類で後悔した記録はまだありません。今回の買い物後に記録すると、次回ここに表示されます。</p>';
+      }
+      return '<div class="regret-list">' + regrets.map(function (item) {
+        var reason = item.reasons && item.reasons.length ? item.reasons.slice(0, 2).join('・') : '理由メモなし';
+        return '<div class="regret-product"><strong>' + escapeHtml(item.name) + ' は後悔した</strong><small>前回の理由：' + escapeHtml(reason) + '<br>推定 ' + item.kcal + 'kcal</small></div>';
+      }).join('') + '</div>';
+    }
+
+    function setView(view) {
+      state.view = view;
+      save();
+      render();
+    }
+
+    function updateNav() {
+      var buttons = nav.querySelectorAll('button');
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.toggle('active', buttons[i].dataset.view === state.view);
+      }
+    }
+
+    function planPreviewHtml() {
+      var words = plannedWords();
+      if (!words.length) return '<div class="empty">まだ予定がありません。ざっくりでいいので、今日買う予定を書いてください。</div>';
+      return '<div class="plan-preview">' + words.map(function (word) {
+        return '<div class="plan-chip"><span class="dot"></span>' + escapeHtml(word) + '</div>';
+      }).join('') + '</div>';
+    }
+
+    function renderPlan() {
+      app.innerHTML = '' +
+        '<section class="screen-grid">' +
+          '<div>' +
+            '<h2 class="screen-title">買い物前に、予定だけ決める</h2>' +
+            '<p class="screen-subtitle">細かいチェックリストではなく、「今日は何を買うつもりか」をざっくり書くだけです。決定したら、そのまま店内画面に進みます。</p>' +
+            '<label class="field-label" for="planText">今日買う予定</label>' +
+            '<textarea class="textarea" id="planText" placeholder="例：豚ロース、レタス、ブルーベリー">' + escapeHtml(state.planText) + '</textarea>' +
+            '<div class="button-row">' +
+              '<button class="btn primary" type="button" data-action="save-plan">買い物を決定して店内へ</button>' +
+            '</div>' +
+          '</div>' +
+          '<aside class="side-card green">' +
+            '<h3>今日の予定</h3>' +
+            '<p>ここにない商品を店内で欲しくなったら、予定外購入として確認します。</p>' +
+            planPreviewHtml() +
+          '</aside>' +
+        '</section>';
+    }
+
+    function categoryButtonsHtml() {
+      return categories.map(function (cat) {
+        var active = cat.id === state.categoryId ? ' active' : '';
+        return '<button class="category-btn' + active + '" type="button" data-action="select-category" data-id="' + cat.id + '">' +
+          '<strong>' + cat.label + '</strong><small>' + cat.hint + '</small>' +
+        '</button>';
+      }).join('');
+    }
+
+    function renderStore() {
+      var cat = categoryById(state.categoryId);
+      var name = state.candidateName || '';
+      var planned = isPlanned(name);
+      var regret = regretMatch(name);
+      var categoryRegretHtml = categoryRegretsHtml(cat.id);
+      app.innerHTML = '' +
+        '<section class="screen-grid">' +
+          '<div>' +
+            '<h2 class="screen-title">店内で気になった商品を確認</h2>' +
+            '<p class="screen-subtitle">商品名とカテゴリーを入れると、推定カロリーを表示します。買う前に少しだけ立ち止まる画面です。</p>' +
+            '<label class="field-label" for="candidateName">気になる商品</label>' +
+            '<input class="input" id="candidateName" value="' + escapeHtml(name) + '" placeholder="例：クジラベーコン">' +
+            '<label class="field-label">カテゴリー</label>' +
+            '<div class="category-grid">' + categoryButtonsHtml() + '</div>' +
+            '<div class="button-row">' +
+              '<button class="btn orange" type="button" data-action="buy">買ったので振り返る</button>' +
+              '<button class="btn secondary" type="button" data-action="avoid">今回はやめる</button>' +
+            '</div>' +
+          '</div>' +
+          '<aside>' +
+            '<div class="calorie-card">' +
+              '<div class="label">推定カロリー</div>' +
+              '<div class="calorie">' + cat.kcal + '<span>kcal</span></div>' +
+              '<p>' + escapeHtml(cat.label) + 'の一般的な目安です。</p>' +
+            '</div>' +
+            '<div class="question-list">' +
+              '<div class="question-item"><span class="icon">?</span><span>今の気分でほしいだけ？</span></div>' +
+              '<div class="question-item"><span class="icon">↺</span><span>後悔はない？</span></div>' +
+              '<div class="question-item"><span class="icon">k</span><span>カロリーをまずはチェック</span></div>' +
+            '</div>' +
+            '<div class="side-card yellow" style="margin-top:16px"><h3>前回後悔した商品</h3><p>' + escapeHtml(cat.label) + 'で過去に後悔した商品を表示します。</p>' + categoryRegretHtml + '</div>' +
+            (planned ? '<div class="side-card green" style="margin-top:16px"><h3>予定に入っています</h3><p>買う予定にある商品なので、強い確認は出しません。</p></div>' : '') +
+            (regret ? '<div class="warning-box">前にも似た買い物で後悔しています。前回の理由：' + escapeHtml(regret.reasons.slice(0,2).join('・')) + '</div>' : '') +
+          '</aside>' +
+        '</section>';
+    }
+
+    function statusButtonsHtml() {
+      return ['買ってよかった', 'ふつう', '後悔した'].map(function (label) {
+        var active = state.reviewStatus === label ? ' active' : '';
+        return '<button class="' + active + '" type="button" data-action="status" data-status="' + label + '">' + label + '</button>';
+      }).join('');
+    }
+
+    function reasonButtonsHtml() {
+      return reasons.map(function (reason) {
+        var active = state.selectedReasons.indexOf(reason) >= 0 ? ' active' : '';
+        var prefix = active ? '✓ ' : '';
+        return '<button class="reason-chip' + active + '" type="button" data-action="reason" data-reason="' + reason + '">' + prefix + reason + '</button>';
+      }).join('');
+    }
+
+    function renderReview() {
+      if (!state.pending) {
+        app.innerHTML = '<div class="empty"><strong>振り返る商品がありません。</strong><br>店内画面で「買ったので振り返る」を押すと、ここに移動します。</div><div class="button-row"><button class="btn primary" type="button" data-action="go-store">店内画面へ</button></div>';
+        return;
+      }
+      app.innerHTML = '' +
+        '<section class="screen-grid">' +
+          '<div>' +
+            '<h2 class="screen-title">買ってどうだった？</h2>' +
+            '<p class="screen-subtitle">予定外購入を責めるのではなく、次回の買い物前に思い出せるように記録します。</p>' +
+            '<div class="result-card">' +
+              '<h3>' + escapeHtml(state.pending.name) + '</h3>' +
+              '<p>' + escapeHtml(categoryById(state.pending.categoryId).label) + '・推定 ' + state.pending.kcal + 'kcal</p>' +
+            '</div>' +
+            '<label class="field-label">評価</label>' +
+            '<div class="segmented">' + statusButtonsHtml() + '</div>' +
+            '<label class="field-label">理由</label>' +
+            '<div class="reason-grid">' + reasonButtonsHtml() + '</div>' +
+            '<label class="field-label" for="note">メモ</label>' +
+            '<textarea class="textarea" id="note" placeholder="例：その場では欲しかったが、家ではあまり食べたくならなかった。"></textarea>' +
+            '<div class="button-row"><button class="btn primary" type="button" data-action="save-review">記録を保存する</button></div>' +
+          '</div>' +
+          '<aside class="side-card orange">' +
+            '<h3>記録の使い方</h3>' +
+            '<p>「後悔した」と保存した商品は、次回似た商品を買おうとしたときに店内画面で注意表示されます。</p>' +
+          '</aside>' +
+        '</section>';
+    }
+
+    function renderPraise(item) {
+      app.innerHTML = '' +
+        '<section class="screen-grid">' +
+          '<div>' +
+            '<h2 class="screen-title">今回は立ち止まれました</h2>' +
+            '<p class="screen-subtitle">買わなかったことを「我慢」ではなく、「後悔しそうな買い物を選び直せた」として記録します。</p>' +
+            '<div class="praise-card">' +
+              '<h3>' + escapeHtml(item.name) + 'を今回はやめました</h3>' +
+              '<p>' + escapeHtml(categoryById(item.categoryId).label) + '・推定 ' + item.kcal + 'kcal を買う前に確認できました。</p>' +
+            '</div>' +
+            '<div class="button-row">' +
+              '<button class="btn primary" type="button" data-action="go-store">別の商品を確認する</button>' +
+              '<button class="btn secondary" type="button" data-action="go-history">記録を見る</button>' +
+            '</div>' +
+          '</div>' +
+          '<aside class="side-card green">' +
+            '<h3>いい判断です</h3>' +
+            '<p>全部を節約する必要はありません。後悔しそうな予定外購入だけ、買う前に気づければ十分です。</p>' +
+          '</aside>' +
+        '</section>';
+    }
+
+    function renderHistory() {
+      var items = state.history.slice().reverse();
+      var html = '<h2 class="screen-title">買い物の記録</h2><p class="screen-subtitle">買った後の感想と、買う前にやめられた記録を残します。</p>';
+      if (!items.length) {
+        html += '<div class="empty">まだ記録がありません。</div>';
+      } else {
+        html += '<div class="history-list">' + items.map(function (item) {
+          var cls = item.type === 'avoided' ? 'avoid' : item.status === '後悔した' ? 'regret' : item.status === '買ってよかった' ? 'good' : 'normal';
+          var label = item.type === 'avoided' ? 'やめられた' : item.status;
+          var meta = categoryById(item.categoryId).label + '・推定 ' + item.kcal + 'kcal';
+          var reasonText = item.reasons && item.reasons.length ? '<br>理由：' + escapeHtml(item.reasons.join('・')) : '';
+          var noteText = item.note ? '<br>メモ：' + escapeHtml(item.note) : '';
+          return '<article class="history-item"><div><strong>' + escapeHtml(item.name) + '</strong><div class="history-meta">' + meta + reasonText + noteText + '</div></div><span class="badge ' + cls + '">' + escapeHtml(label) + '</span></article>';
+        }).join('') + '</div>';
+      }
+      app.innerHTML = html;
+    }
+
+    function render() {
+      updateNav();
+      if (state.view === 'plan') renderPlan();
+      if (state.view === 'store') renderStore();
+      if (state.view === 'review') renderReview();
+      if (state.view === 'history') renderHistory();
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(function () { toast.classList.remove('show'); }, 1700);
+    }
+
+    function updateCandidateFromInputs() {
+      var input = document.getElementById('candidateName');
+      if (input) state.candidateName = input.value.trim() || '名前未入力の商品';
+      var cat = categoryById(state.categoryId);
+      return {
+        id: makeId(),
+        name: state.candidateName,
+        categoryId: cat.id,
+        kcal: cat.kcal,
+        date: new Date().toISOString()
+      };
+    }
+
+    document.addEventListener('click', function (event) {
+      var target = event.target.closest('[data-action]');
+      if (!target) return;
+      var action = target.dataset.action;
+
+      if (action === 'save-plan') {
+        var planText = document.getElementById('planText');
+        state.planText = planText ? planText.value.trim() : state.planText;
+        setView('store');
+        showToast('買い物予定を決定しました');
+      }
+
+      if (action === 'select-category') {
+        var input = document.getElementById('candidateName');
+        if (input) state.candidateName = input.value.trim();
+        state.categoryId = target.dataset.id;
+        save();
+        render();
+      }
+
+      if (action === 'buy') {
+        state.pending = updateCandidateFromInputs();
+        state.reviewStatus = 'ふつう';
+        state.selectedReasons = [];
+        setView('review');
+        showToast('購入後の振り返りへ移動しました');
+      }
+
+      if (action === 'avoid') {
+        var avoided = updateCandidateFromInputs();
+        avoided.type = 'avoided';
+        avoided.status = 'やめられた';
+        avoided.reasons = ['買う前にカロリーを確認できた'];
+        avoided.note = '';
+        state.history.push(avoided);
+        save();
+        renderPraise(avoided);
+        showToast('今回は立ち止まれました');
+      }
+
+      if (action === 'status') {
+        state.reviewStatus = target.dataset.status;
+        save();
+        renderReview();
+      }
+
+      if (action === 'reason') {
+        var reason = target.dataset.reason;
+        var index = state.selectedReasons.indexOf(reason);
+        if (index >= 0) state.selectedReasons.splice(index, 1);
+        else state.selectedReasons.push(reason);
+        save();
+        renderReview();
+      }
+
+      if (action === 'save-review') {
+        if (!state.pending) return;
+        var note = document.getElementById('note');
+        var record = {
+          id: makeId(),
+          type: 'bought',
+          name: state.pending.name,
+          categoryId: state.pending.categoryId,
+          kcal: state.pending.kcal,
+          status: state.reviewStatus,
+          reasons: state.selectedReasons.slice(),
+          note: note ? note.value.trim() : '',
+          date: new Date().toISOString()
+        };
+        state.history.push(record);
+        state.pending = null;
+        state.selectedReasons = [];
+        state.reviewStatus = 'ふつう';
+        setView('history');
+        showToast('振り返りを保存しました');
+      }
+
+      if (action === 'go-store') setView('store');
+      if (action === 'go-history') setView('history');
+    });
+
+    document.addEventListener('input', function (event) {
+      if (event.target.id === 'candidateName') {
+        state.candidateName = event.target.value;
+        save();
+      }
+      if (event.target.id === 'planText') {
+        state.planText = event.target.value;
+        save();
+      }
+    });
+
+    nav.addEventListener('click', function (event) {
+      var button = event.target.closest('button[data-view]');
+      if (!button) return;
+      setView(button.dataset.view);
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', function () {
+      localStorage.removeItem(STORAGE_KEY);
+      state = defaultState();
+      render();
+      showToast('デモ状態に戻しました');
+    });
+
+    render();
+  </script>
+</body>
+</html>
