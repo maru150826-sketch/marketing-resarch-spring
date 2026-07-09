@@ -2,71 +2,32 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KauMae（買う前）</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="site-shell">
-    <header class="site-header">
+  <div class="app-shell">
+    <header class="hero">
       <div>
-        <p class="eyebrow">買う前に、少しだけ立ち止まる</p>
-        <h1>KauMae<span>（買う前）</span></h1>
-        <p class="lead">後悔しそうな予定外購入だけ、買う前に気づかせる買い物メモアプリ。</p>
+        <p class="eyebrow">予定外購入を、買う前に一度だけ見直す</p>
+        <h1>KauMae <span>買う前</span></h1>
+        <p class="lead">全部の衝動買いを止めるのではなく、後悔しそうな買い物だけをカロリーと過去メモで確認するアプリ。</p>
       </div>
-      <div class="header-actions">
-        <button class="ghost-button" id="togglePresentation" type="button">4画面表示</button>
-        <button class="ghost-button danger" id="resetDemo" type="button">デモリセット</button>
-      </div>
+      <button class="ghost-button" id="resetDemo" type="button">デモリセット</button>
     </header>
 
-    <main>
-      <section class="app-stage" id="appStage" aria-label="KauMae アプリ操作画面">
-        <div class="phone-frame single-phone">
-          <div class="status-bar"><span>9:41</span><span>●●●  5G  ▰</span></div>
-          <div class="phone-top">
-            <button class="icon-button" id="backButton" type="button" aria-label="戻る">‹</button>
-            <div class="brand">KauMae <span>（買う前）</span></div>
-            <button class="icon-button" id="cartButton" type="button" aria-label="買い物かご">🛒</button>
-          </div>
-          <div class="screen" id="screenRoot"></div>
-          <nav class="bottom-nav" aria-label="画面切り替え">
-            <button data-view="list" class="active" type="button"><span>1</span>買い物前</button>
-            <button data-view="check" type="button"><span>2</span>店内</button>
-            <button data-view="review" type="button"><span>3</span>購入後</button>
-            <button data-view="reminder" type="button"><span>4</span>次回</button>
-          </nav>
-        </div>
-      </section>
+    <nav class="step-nav" id="stepNav" aria-label="画面切り替え">
+      <button data-view="plan" class="active" type="button"><span>1</span>買い物前</button>
+      <button data-view="store" type="button"><span>2</span>店内</button>
+      <button data-view="review" type="button"><span>3</span>購入後</button>
+      <button data-view="history" type="button"><span>4</span>記録</button>
+    </nav>
 
-      <section class="presentation-grid hidden" id="presentationGrid" aria-label="4画面プロトタイプ">
-        <article class="phone-card">
-          <div class="step-label"><span>1</span>買い物前</div>
-          <div class="phone-frame mini"><div class="mini-screen" id="miniList"></div></div>
-        </article>
-        <article class="phone-card">
-          <div class="step-label"><span>2</span>店内</div>
-          <div class="phone-frame mini"><div class="mini-screen" id="miniCheck"></div></div>
-        </article>
-        <article class="phone-card">
-          <div class="step-label"><span>3</span>購入後</div>
-          <div class="phone-frame mini"><div class="mini-screen" id="miniReview"></div></div>
-        </article>
-        <article class="phone-card">
-          <div class="step-label"><span>4</span>次回</div>
-          <div class="phone-frame mini"><div class="mini-screen" id="miniReminder"></div></div>
-        </article>
-      </section>
-    </main>
+    <main class="app-card" id="screenRoot" aria-live="polite"></main>
   </div>
 
-  <template id="productThumbTemplate">
-    <div class="product-thumb" aria-hidden="true">
-      <div class="whale">くじら</div>
-      <div class="meat-lines"></div>
-    </div>
-  </template>
-
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>
 </body>
 </html>
